@@ -1,0 +1,303 @@
+\documentclass[10pt]{article} 
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[font=small,skip=3pt]{caption}
+\usepackage{amsxtra}
+\usepackage{empheq}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+%\usepackage{tcolorbox}
+\usepackage{url}
+\usepackage{color,hyperref}
+%\usepackage{pgf, tikz}
+\usepackage{tikz-cd}
+\usepackage{epstopdf}
+%\usepackage{pgfplots}
+%\usepackage{mathrsfs}
+\usetikzlibrary{calc,arrows,decorations.pathmorphing}
+\hypersetup{colorlinks,breaklinks,
+             linkcolor=blue,urlcolor=blue,
+           anchorcolor=blue,citecolor=blue}
+
+\usepackage[margin=3cm]{geometry}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Z}{\mathbb{Z}}
+\renewcommand{\L}{\mathcal{L}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\limsupn}{\limsup_{n \to \infty}}
+\newcommand{\liminfn}{\liminf_{n \to \infty}}
+\newenvironment{bp}{\color{blue}\begin{proof}}{\end{proof}}
+\newenvironment{bs}{\color{blue}\begin{proof}[Solution]}{\end{proof}}
+\renewcommand{\bar}[1]{\overline{#1}}
+\renewcommand{\Im}{\text{Im}}
+\renewcommand{\Re}{\text{Re}}
+\newcommand{\vb}[1]{\mathbf{#1}}
+\newcommand{\dudn}{\frac{\partial u}{\partial n}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\limh}{\lim_{h\to 0^{+}}}
+\newcommand{\lp}{\left(}
+\newcommand{\rp}{\right)}
+\newcommand{\lb}{\left[}
+\newcommand{\rb}{\right]}
+\newcommand{\open}{\mathcal{O}}
+\newcommand{\hotempty}{\varnothing}
+\newcommand{\tpose}{\mathsf{T}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+ 
+
+\def\scriptf{{\mathcal F}}
+\def\scriptq{{\mathcal Q}}
+\def\scriptg{{\mathcal G}}
+\def\scriptm{{\mathcal M}}
+\def\scriptb{{\mathcal B}}
+\def\scriptc{{\mathcal C}}
+\def\scriptt{{\mathcal T}}
+\def\scripti{{\mathcal I}}
+\def\scripte{{\mathcal E}}
+\def\scriptv{{\mathcal V}}
+\def\scriptw{{\mathcal W}}
+\def\scriptu{{\mathcal U}}
+\def\scriptS{{\mathcal S}}
+\def\scripta{{\mathcal A}}
+\def\scriptr{{\mathcal R}}
+\def\scripto{{\mathcal O}}
+\def\scripth{{\mathcal H}}
+\def\scriptd{{\mathcal D}}
+\def\scriptl{{\mathcal L}}
+\def\scriptn{{\mathcal N}}
+\def\scriptp{{\mathcal P}}
+\def\scriptk{{\mathcal K}}
+\def\scriptP{{\mathcal P}}
+\def\scriptj{{\mathcal J}}
+\def\scriptz{{\mathcal Z}}
+\def\scripts{{\mathcal S}}
+\def\scriptx{{\mathcal X}}
+\def\scripty{{\mathcal Y}}
+\def\frakv{{\mathfrak V}}
+\def\frakG{{\mathfrak G}}
+\def\frakB{{\mathfrak B}}
+\def\frakC{{\mathfrak C}}
+
+\def\symdif{\,\Delta\,}
+\def\mustar{\mu^*}
+\def\muplus{\mu^+}
+
+%%% AVERAGE INTEGRAL %%%
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+\vcenter{\hbox{$#2#3$ }}\kern-.6\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+
+\newcommand{\loc}{L^{1}_{\text{loc}}}
+\newcommand{\acc}{\text{acc}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Ker}{\operatorname{Ker}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Arg}{\operatorname{Arg}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\abserr}{\operatorname{abserr}}
+\newcommand{\relerr}{\operatorname{relerr}}
+\newcommand{\round}{\operatorname{round}}
+\newcommand{\sinc}{\operatorname{sinc}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\wt}{\widetilde}
+\newcommand{\wh}{\widehat}
+
+
+
+\newtheorem*{thm*}{Theorem}
+\definecolor{ccqqqq}{rgb}{0.8,0.,0.}
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\definecolor{zzttqq}{rgb}{0.6,0.2,0.}
+\definecolor{qqqqff}{rgb}{0.,0.,1.}
+%\pgfplotsset{width=10cm, compat=1.9}
+
+\begin{document}
+
+{ \large \textbf{\textsc{High Performance Computing -- Problem Set 3 (Due Apr. 6)}}}
+
+{ \large \textbf{\textsc{solutions by Frederick Law}}}
+
+\thispagestyle{empty}
+\vspace{0.1in}
+
+
+\begin{enumerate}
+
+\item[2.] \textbf{Approximating Special Functions Using Taylor Series Series and Vectorization.} Special functions like trigonometric functions can be expensive to evaluate on current processor architectures which are optimized for floating-point multiplications and additions. In this assignment, we will try to optimize evaluation of $\sin(x)$ for $x \in [-\pi/4, \pi/4]$ by replacing the built-in scalar function C/C++ with a vectorized Taylor series approximation,
+\begin{align*}
+\sin (x) = x - \frac{x^{3}}{3!} + \frac{x^{5}}{5!} - \frac{x^{7}}{7!} + \frac{x^{9}}{9!} - \frac{x^{11}}{11!} + \cdots
+\end{align*}
+The source file \texttt{fast-sin.cpp} in the homework repository contains the following functions to evaluate $\{ \sin(x_{0}), \sin(x_{1}), \sin(x_{2}), \sin (x_{3})\}$ for different $x_{0}, \dotsc, x_{3}$.
+\begin{itemize}
+	\item \texttt{sin4\_reference()} : is implemented using the built-in C/C++ function.
+	\item \texttt{sin4\_taylor()}: evaluates a truncated Taylor series expansion accurate to about 12-digits
+	\item \texttt{sin4\_intrin()}: evaluates only the first two terms in the Taylor series expansion (3-digit accuracy) and is vectorized using SSE and AVX intrinsics.
+	\item \texttt{sin4\_vec()}: evaluates only the first two terms in the Taylor series expansion (3-digit accuracy) and is vectorized using the Vec class.
+\end{itemize}
+Your task is to improve the accuracy to 12-digits for \textbf{any one} vectorized version by adding more terms to the Taylor series expansion. Depending on the instruction set supported by the processor you are using, you can choose to do this for either the SSE part of the function \texttt{sin4\_intrin()} or the AVX part of the function \texttt{sin4\_intrin()} or for the function \texttt{sin4\_vec()}.
+
+
+\textbf{Solution:} We chose to add extra terms to \texttt{sin4\_intrin()} using SSE intrinsics in order to achieve 12-digit accuracy. First we defined more variables to represent $x^{5}, x^{7}, x^{9}, x^{11}$ using:
+\begin{align*}
+\texttt{\_\_m128d x5, x7, x9, x11;}. 
+\end{align*}
+The code had already computed $x, x^{2}, x^{3}$, so we added lines to build $x^{5}, x^{7}, x^{9}, x^{11}$ using the intrinsic multiplication:
+\begin{align*}
+    &\texttt{x5  = \_mm\_mul\_pd(x3, x2);}\\
+    &\texttt{x7  = \_mm\_mul\_pd(x5, x2);}\\
+    &\texttt{x9  = \_mm\_mul\_pd(x7, x2);}\\
+    &\texttt{x11 = \_mm\_mul\_pd(x9, x2);}\\
+\end{align*}
+Lastly we add these extra terms to the output which is stored as \texttt{s}. Using intrinsics, we broadcast the coefficients $c_{5} = \frac{1}{5!}, c_{7} = -\frac{1}{7!}, c_{9} = \frac{1}{9!}, c_{11} = -\frac{1}{11!}$, multiply against $x^{5}, x^{7}, x^{9}, x^{11}$ respectively, and add back to \texttt{s}:
+\begin{align*}
+    &\texttt{s = \_mm\_add\_pd(s, \_mm\_mul\_pd(x5,  \_mm\_set1\_pd(c5 )));}\\
+    &\texttt{s = \_mm\_add\_pd(s, \_mm\_mul\_pd(x7,  \_mm\_set1\_pd(c7 )));}\\
+    &\texttt{s = \_mm\_add\_pd(s, \_mm\_mul\_pd(x9,  \_mm\_set1\_pd(c9 )));}\\
+    &\texttt{s = \_mm\_add\_pd(s, \_mm\_mul\_pd(x11,  \_mm\_set1\_pd(c11 )));}
+\end{align*}
+
+We also modified \texttt{sin4\_vec()} to achieve 12-digits accuracy so that timing comparisons are fair. To do this we essentially did the code additions as for the SSE intrinsics, but now declaring \texttt{x5}, \texttt{x7}, \texttt{x9}, and \texttt{x11} to be of the class Vec and using ordinary floating point operations (instead of the intrinsic calls).
+
+Compiling and running \texttt{fast-sin.cpp} with these additions to \texttt{sin4\_intrin()} and \texttt{sin4\_vec()}, we see that both the intrinsic method and the Vec method now achieve 12-digits of accuracy, matching the 12-digit accuracy of \texttt{sin4\_taylor()}. We timed the method using various problem sizes, repeating each method for 1000 times. Here $N$ denotes the problem size, the number of random $x \in [-\pi/4, \pi,4]$ that we are computing $\sin (x)$ for. 
+
+The architecture we obtained our results on is an 8th Gen. "Amber Lake Y" Intel Core i5-8210Y @ 1.60GHz. This processor has 2 physical cores, which with hyperthreading yields 4 threads. It can also features Turbo Boost which allows it to run up to 3.60GHz and has a 4MB shared L3 cache. In Table \ref{prob2-timings} we report the timings for the four methods, as well as the relative speed to the built-in version (i.e. relative speed to \texttt{sin4\_reference()}).
+\begin{table}[!ht]
+\centering
+\caption{Timings in seconds(s) for 1000 repeats of the four methods on various problem sizes $N$, using GNU compiler flags \texttt{-march=native} and \texttt{-O2}. For s \texttt{sin4\_taylor()}, \texttt{sin4\_intrin()}, and \texttt{sin4\_vec()}, the second entry represents the speed relative to the built-in method.} \label{prob2-timings}
+\begin{tabular}{| c | c | c | c | c |}
+\hline
+& \texttt{sin4\_reference()} & \texttt{sin4\_taylor()} & \texttt{sin4\_intrin()} & \texttt{sin4\_vec()}\\
+\hline
+$N =$	 1e+04 & 0.0530s & (0.01900s, 2.78x) & (0.0097s, 5.46x) & (0.0049s, 10.8x) \\
+$N =$ 5e+04 & 0.2399s & (0.0966s, 2.48x) & (0.0528s, 4.54x) & (0.0284s, 8.44x) \\
+$N =$ 1e+05 & 0.4713s & (0.1937s, 2.43x) & (0.1001s, 4.70x) & (0.0517s, 9.11x) \\
+$N =$ 5e+05 & 2.4063s & (1.0484s, 2.29x) & (0.6118s, 3.93x) & (0.4569s, 5.26x) \\
+$N =$ 1e+06 & 4.8435s & (2.0391s, 2.37x) & (1.3245s, 3.65x) & (1.0464s, 4.62x) \\
+$N =$ 5e+06 & 25.0859s & (11.2761s, 2.22x) & (7.2962s, 3.43x) & (6.0311s, 4.16x) \\
+$N =$ 1e+07 & 56.4869s & (25.1855s, 2.24x) & (16.4963s, 3.42x) & (13.5418s, 4.17x) \\
+$N =$ 5e+07 & 302.9787s & (126.4706s, 2.39x) & (64.5378s, 3.77x) & (64.5378s, 4.69x) \\
+\hline
+\end{tabular}
+\end{table}
+
+Looking at the results, we see that the methods using Taylor expansion, SSE intrinsics, and the Vec class are significantly faster than the built-in method. In particular, the two vectorized methods, using SSE intrinsics or the Vec class, are noticeably faster than the Taylor method, and they both get the same 12-digit accuracy. On average, the Taylor method is around 1.5x faster than built-in, while SSE intrinsics are almost 3x faster than built-in. The method with the Vec class is around 4-5x the speed of built-in.
+
+We note that as $N$ increases the relative speed to the built-in function decreases. Growing the problem size by 3 orders of magnitude from $N=$ 1e+04 to $N=$ 1e+07 causes causes the Taylor method to go from 2.78x faster to 2.39x faster. Likewise, the SSE instrisic method goes from 5.46x faster to 3.77xx faster and the method using the Vec class goes from 10.8x faster to 4.69x faster.
+
+One peculiar feature is that while the relative speed to built-in decreases as $N$ grows, we do see a small increase from $N=$ 1e+07 to $N=$ 5e+07 for all three methods. While the jump is small, it's near a near 10\% increase for the vectorized methods. One possible explanation for this increase in relative speed is that our processor has "Turbo Boost" which allows it to run faster when necessary, but this is controlled at the machine level. As a result we cannot manually enable or even detect when exactly this improved clock rate is active. \qed
+
+
+
+
+
+
+
+\item[3.] \textbf{Parallel Scan in OpenMP.} This is an example where the shared memory parallel version of an algorithm requires some thinking beyond parallelizing for-loops. We aim at parallelizing a scan-operation with OpenMP (a serial version is provided in the homework repo). Given a (long) vector/array $\vb v \in \R^{n}$, a scan outputs another vector/array $\vb w \in \R^{n}$ of the same size with entries
+\begin{align*}
+w_{k} = \sum_{i=1}^{k} v_{i} \; \text{  for  } \; k=1,\dotsc,n
+\end{align*}
+To parallelize the scan operation with OpenMP using $p$ threads, we split the vector into $p$ parts $[v_{k(j)}, v_{k(j+1)-1}]$, $j=1,\dotsc,p$, where $k(1) = 1$ and $k(p+1) = n+1$ of (approximately) equal length. Now, each thread computes the scan locally and in parallel, neglecting the contributions from the other threads. Every but the first local scan thus computes results that are off by a constant, namely the sums obtained by all the threads with lower number.
+
+ For instance, all the results obtained by the $r$-th thread are off by
+\begin{align*}
+\sum_{i=1}^{k(r)-1} v_{i} = s_{1} + \cdots + s_{r-1}
+\end{align*}
+which can easily be computed as the sum of the partial sums $s_{1}, \dotsc, s_{r-1}$ computed by threads with numbers smaller than $r$. This correction can be done in serial.
+\begin{itemize}
+	\item Parallelize the provided serial code. Run it with different thread numbers and report the architecture you run it on, the number of cores of the processor and the time it takes.
+\end{itemize}
+
+\textbf{Solution:} We parallelized this code by breaking the scan into local scans then correction. That is, we set $N = \lceil \frac{n}{p} \rceil$.  Then thread $k$ does a local scan on $[v_{kN+1}, \dotsc, v_{(k+1)N}]$ for $k=0, \dotsc, p-2$. The last thread, $p-1$, just does what's left: $[v_{[(p-1)N + 1,n}, \dotsc, v_{n}]$. These are done by calls to the sequential scan routine, where for each thread we just pass along the original pointer + a the appropriate shift. We implemented this just using a parallel for loop in OpenMP.
+
+Once the threads have each finished their local we have to compute the corrections. Note that we can do this quickly by just going through the array once more. That is, at this stage the $p$ threads have computed their local scans to build $\wt{\vb w}$. Note that the first $N$ entries are correct already, that is $w_{l} = \wt{w}_{l}$ for $l=1, \dotsc, N$. We can use this to correct the next $N$ terms, and then so on and so forth. This is done by running a (serial) loop over $k=1, \dotsc,  p-1$:
+\begin{itemize}
+	\item At a given $k$, all the work done by previous threads $0, \dotsc, k-1$ have been corrected for. That is $w_{l} = \wt w_{l}$ for $l=1, \dotsc, kN$. So we read the value of $\tilde{w}_{kN} = w_{kN}$ and update:
+	\begin{align*}
+	\wt w_{kN+l} \leftarrow \wt w_{kN + l} + \wt w_{kN}
+	\end{align*}
+	for $l=1, \dotsc,  N$. This update has $N$ iterations and can be done with a parallel for in OpenMP.
+\end{itemize}
+At the end of this serial loop over $k=1, \dotsc, p-1$, then $\wt{\vb{w}} = \vb{w}$ and we are done.
+
+We tested our parallel scan versus the sequential scan using 1, 2, 3, 4 threads and various problem sizes. For consistency, we measure our timing for 1000 repeats, i.e. each method does 1000 scans. The architecture is the same as in Problem 2: an 8th Gen. "Amber Lake Y" Intel Core i5-8210Y @ 1.60GHz (3.60GHz with turbo boost) with 2 physical cores + hyperthreading for 4 threads. In Table \ref{prob3-timings} we report the timings for sequential and parallel scans.
+\begin{table}[!ht]
+\centering
+\caption{Timings in seconds(s) for 1000 repeats of sequential scan and parallel scan with different number of threads and problem size $n$. Timings obtained using GNU compiler flags \texttt{-march=native} and \texttt{-O2}.} \label{prob3-timings}
+\begin{tabular}{| c | c | c | c | c | c |}
+\hline
+& $n=$ 1e+06 & $n=$ 5e+06 & $n=$ 1e+07 & $n=$ 5e+07 & $n=$ 1e+08\\
+\hline
+sequential & 2.43s & 12.02s & 24.25s & 266.18s & 544.07s \\
+parallel, 1 thread & 2.00s & 11.87s & 23.70s & 267.80s & 548.16s \\
+parallel, 2 threads & 1.49s & 8.67s & 17.60s & 193.22s & 406.40s \\
+parallel, 3 threads & 1.47s & 7.67s & 15.05s & 161.39s & 326.30s \\
+parallel, 4 threads & 1.58s & 7.76s & 16.46s & 146.90s & 281.67s \\
+\hline
+\end{tabular}
+\end{table}
+
+We see that our parallel implementation yields faster timings than sequential. Note that using OpenMP with just a single thread yields almost the same time as the sequential scan which is surprising since we would expect some amount of overhead to slow it down. We see that all the methods scale as expected for increasing $n$, except from $n=$ 1e+07 to $n=$ 5e+07 the run time for all method jumps by a factor closer to 10 than the expected 5. But after that the run time jumps by the expected factor of 2 when we move to $n=$ 1e+08. 
+
+The biggest change in runtime across the methods appears when we move from sequential to 2 threads. Looking at the speedup and efficiency in Table \ref{prob3-speedup} we see that 2 threads has the highest efficiency (excluding 1 thread since this does not provide real speedup). While there is more speed with 3 or 4 threads, specifically at $n=$ 1e+08 we get almost double speedup with 4 threads, the efficiency for those thread numbers is much lower. One reason for this is that the problem does not have a very large computational intensity. As a result, the overhead for managing 3+ threads might not pay off until the problem size becomes unreasonably large.
+
+\begin{table}[!ht]
+\centering
+\caption{(speedup, efficiency) for parallel scan compared to sequential scan, for different number of threads and problem size. Obtained using GNU compiler flags \texttt{-march=native} and \texttt{-O2}} \label{prob3-speedup}
+\begin{tabular}{| c | c | c | c | c | c |}
+\hline
+& $n=$ 1e+06 & $n=$ 5e+06 & $n=$ 1e+07 & $n=$ 5e+07 & $n=$ 1e+08\\
+\hline
+parallel, 1 thread & (1.21, 1.21) & (1.01, 1.01) &  (1.02, 1.02) & (0.994, 0.994)  & (0.992, 0.992) \\
+parallel, 2 threads & (1.63, 0.815) & (1.38, 0.693) &  (1.37, 0.689) & (1.37, 0.688)  & (1.33, 0.669)  \\
+parallel, 3 threads & (1.65, 0.551) & (1.56, 0.522) & (1.61, 0.537) &  (1.65, 0.550) & (1.66, 0.555) \\
+parallel, 4 threads & (1.53, 0.384) & (1.55, 0.387) &  (1.47, 0.368) & (1.81, 0.453)  &  (1.93, 0.483) \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\end{enumerate}
+	
+%\begin{thebibliography}{9}
+
+%\bibitem{fem}
+%S. Boyd and L. Vandenberghe.
+%\textit{Convex Optimization}.
+%Cambridge University Press 2004.
+
+%\bibitem{john}
+%S. G. Johnson.
+%\textit{Notes on FFT-based differentiation}.
+%2011.
+
+%\end{thebibliography}
+
+
+
+
+    
+    
+
+
+\end{document}
+

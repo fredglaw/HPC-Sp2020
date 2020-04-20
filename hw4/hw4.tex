@@ -1,0 +1,258 @@
+\documentclass[10pt]{article} 
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[font=small,skip=3pt]{caption}
+\usepackage{amsxtra}
+\usepackage{empheq}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+%\usepackage{tcolorbox}
+\usepackage{url}
+\usepackage{color,hyperref}
+%\usepackage{pgf, tikz}
+\usepackage{tikz-cd}
+\usepackage{epstopdf}
+%\usepackage{pgfplots}
+%\usepackage{mathrsfs}
+\usetikzlibrary{calc,arrows,decorations.pathmorphing}
+\hypersetup{colorlinks,breaklinks,
+             linkcolor=blue,urlcolor=blue,
+           anchorcolor=blue,citecolor=blue}
+
+\usepackage[margin=3cm]{geometry}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Z}{\mathbb{Z}}
+\renewcommand{\L}{\mathcal{L}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\limsupn}{\limsup_{n \to \infty}}
+\newcommand{\liminfn}{\liminf_{n \to \infty}}
+\newenvironment{bp}{\color{blue}\begin{proof}}{\end{proof}}
+\newenvironment{bs}{\color{blue}\begin{proof}[Solution]}{\end{proof}}
+\renewcommand{\bar}[1]{\overline{#1}}
+\renewcommand{\Im}{\text{Im}}
+\renewcommand{\Re}{\text{Re}}
+\newcommand{\vb}[1]{\mathbf{#1}}
+\newcommand{\dudn}{\frac{\partial u}{\partial n}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\limh}{\lim_{h\to 0^{+}}}
+\newcommand{\lp}{\left(}
+\newcommand{\rp}{\right)}
+\newcommand{\lb}{\left[}
+\newcommand{\rb}{\right]}
+\newcommand{\open}{\mathcal{O}}
+\newcommand{\hotempty}{\varnothing}
+\newcommand{\tpose}{\mathsf{T}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+ 
+
+\def\scriptf{{\mathcal F}}
+\def\scriptq{{\mathcal Q}}
+\def\scriptg{{\mathcal G}}
+\def\scriptm{{\mathcal M}}
+\def\scriptb{{\mathcal B}}
+\def\scriptc{{\mathcal C}}
+\def\scriptt{{\mathcal T}}
+\def\scripti{{\mathcal I}}
+\def\scripte{{\mathcal E}}
+\def\scriptv{{\mathcal V}}
+\def\scriptw{{\mathcal W}}
+\def\scriptu{{\mathcal U}}
+\def\scriptS{{\mathcal S}}
+\def\scripta{{\mathcal A}}
+\def\scriptr{{\mathcal R}}
+\def\scripto{{\mathcal O}}
+\def\scripth{{\mathcal H}}
+\def\scriptd{{\mathcal D}}
+\def\scriptl{{\mathcal L}}
+\def\scriptn{{\mathcal N}}
+\def\scriptp{{\mathcal P}}
+\def\scriptk{{\mathcal K}}
+\def\scriptP{{\mathcal P}}
+\def\scriptj{{\mathcal J}}
+\def\scriptz{{\mathcal Z}}
+\def\scripts{{\mathcal S}}
+\def\scriptx{{\mathcal X}}
+\def\scripty{{\mathcal Y}}
+\def\frakv{{\mathfrak V}}
+\def\frakG{{\mathfrak G}}
+\def\frakB{{\mathfrak B}}
+\def\frakC{{\mathfrak C}}
+
+\def\symdif{\,\Delta\,}
+\def\mustar{\mu^*}
+\def\muplus{\mu^+}
+
+%%% AVERAGE INTEGRAL %%%
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+\vcenter{\hbox{$#2#3$ }}\kern-.6\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+
+\newcommand{\loc}{L^{1}_{\text{loc}}}
+\newcommand{\acc}{\text{acc}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Ker}{\operatorname{Ker}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Arg}{\operatorname{Arg}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\abserr}{\operatorname{abserr}}
+\newcommand{\relerr}{\operatorname{relerr}}
+\newcommand{\round}{\operatorname{round}}
+\newcommand{\sinc}{\operatorname{sinc}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\wt}{\widetilde}
+\newcommand{\wh}{\widehat}
+
+
+
+\newtheorem*{thm*}{Theorem}
+\definecolor{ccqqqq}{rgb}{0.8,0.,0.}
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\definecolor{zzttqq}{rgb}{0.6,0.2,0.}
+\definecolor{qqqqff}{rgb}{0.,0.,1.}
+%\pgfplotsset{width=10cm, compat=1.9}
+
+\begin{document}
+
+{ \large \textbf{\textsc{High Performance Computing -- Problem Set 4 (Due Apr. 20)}}}
+
+{ \large \textbf{\textsc{solutions by Frederick Law}}}
+
+\thispagestyle{empty}
+\vspace{0.1in}
+
+
+\begin{enumerate}
+
+\item \textbf{Matrix-vector operations on a GPU}. Write CUDA code for an inner product between two given (long) vectors on a GPU. Them, generalize this code to implement a matrix-vector multiplication on the GPU. Check the correctness of your implementation by performing the same computation on the CPU and compare them. Report the memory band your code obtains on different GPUs.
+
+
+\textbf{Solution:} We began by implementing a CUDA code for an dot product between two vectors \texttt{x} and \texttt{y} of length $N$. To do this, we essentially viewed taking a dot product as a reduction, with an extra array. Recall that the reduction method we saw in class worked essentially using a recursive structure. The first call did the necessary reads for the array being reduced, and then recursive calls acted on the same array. Hence we wrote a kernel function for the first call, which takes in two arrays \texttt{x} and \texttt{y}, and uses shared memory to hold the values \texttt{x[i]*y[i]}. It then uses the exact same calls to reduction in order to sum these terms up. We also use asynchronous memcpy's to the device, but in practice this did not provide much increase in bandwidth. We tested this against our CPU implementation, which uses OpenMP with a reduction (different use the the term "reduction" here) in order to compute the dot product in parallel. We verified the correctness of our GPU code by comparing the results to the CPU code, and we get exactly the same.
+
+Next we measured the performance of our GPU code against the OpenMP CPU code with 4 threads. To measure the bandwidth, we repeated our repeated each experiment 50 times. The memory bands for various problem sizes $N$ are in Table \ref{vecvec}. We also repeated this on a different GPU and CPU architectures.
+\begin{table}[!ht]
+\centering
+\caption{Bandwidth for GPU versus  OpenMP CPU (4 threads) dot products. All measurements in GB/s, using 50 repeats and \texttt{-O2} compile flag. Tested on two different GPUs and two different CPUs.}
+\begin{tabular}{| c | c | c | c | c | c |}
+\hline
+Vector length is $N=2^{k}$ & $k=20$ & $k=22$  & $k=24$ & $k=26$  \\
+\hline
+GPU (GeForce GTX TITAN Z) & 3.05 & 2.83 & 3.06 & 2.61  \\
+GPU (GeForce RTX 2080 Ti) & 9.99 & 7.49 & 8.13 & 7.79  \\
+CPU (Intel Xeon E5-2650) & 10.08 & 9.54 & 10.38 & 12.66 \\
+CPU (Intel Xeon E5-2660) & 26.75 & 28.82 & 38.17 & 30.29 \\
+\hline
+\end{tabular}
+\label{vecvec}
+\end{table}
+
+Looking at the results in Table \ref{vecvec}, it seems that the GPU dot product has a lower memory band than the parallel CPU dot product. One reason for this is that the computational intensity is extremely low per thread. Hence, it is possible that most of the time is spent copying memory to the from the GPU which would lead to a low memory bandwidth. However, it is also possible that our GPU implementation is not as efficient as it could be. Moreover, we see that performance depends significantly on the GPU (and CPU) the code is being run on. The GeForce GTX TITAN Z and Intel Xeon E5-2650 correspond to the \texttt{cuda5.cims.nyu.edu} server, while the GeForce RTX 2080 Ti and Intel Xeon E5-2660 correspond to the \texttt{cuda2.cims.nyu.edu} server.
+
+Next we extended our code to do matrix-vector multiplication (matvec). That is, if we are compute $c = Ab$ for $A$ an $M \times N$ matrix and $c,b$ vectors of length $M,N$ respectively, then $c_{j} = a_{j}^{T}b$ where $a_{j}^{T}$ is the $j$th row of $A$. Hence for both the CPU and GPU codes, we can compute a matrix vector multiplication by just running a loop to repeatedly call the dot-product codes. All that needs to be done is correctly shift the pointers to read the correct rows of $A$, and write to the correct entry in $c$. 
+
+We verified our code by comparing the $l_{1}$ norm between the GPU and CPU solutions, which is machine precision in all cases. We tested our code for different sized square matrices $(N=M)$ and measured the bandwidth of both codes.
+\begin{table}[!ht]
+\centering
+\caption{Bandwidth for GPU versus  OpenMP CPU (4 threads) matrix vector products . All measurements in GB/s, using 50 repeats and \texttt{-O2} compile flag. Tested on two different GPUs and two different CPUs.}
+\begin{tabular}{| c | c | c | c | c | c |}
+\hline
+Matrix is $N \times N$ with $N=2^{k}$ & $k=10$ & $k=11$  & $k=12$ & $k=13$  \\
+\hline
+GPU (GeForce GTX TITAN Z) & 0.743 & 1.19 & 1.88 & 2.75  \\
+GPU (GeForce GTX TITAN Black) & 0.803 & 1.52 & 2.78 & 4.37  \\
+CPU (Intel Xeon E5-2650) & 0.842 & 0.738 & 1.74 & 1.92 \\
+CPU (Intel Xeon E5-2680) & 2.22 & 4.04 & 4.69 & 6.48 \\
+\hline
+\end{tabular}
+\label{matvec}
+\end{table}
+
+We note that the bandwidth for the matvec is significantly lower for both CPU and GPU. Note that in these tests we used a different GPU and CPU than when testing the dot product. Namely we use a GeForce GTX TITAN Black GPU and Intel Xeon E5-2680 CPU corresponding to the \texttt{cuda1.cims.nyu.edu} server. One reason for this is that in between measurements the \texttt{cuda2} server appeared to have an influx of other code running on it, based on looking at \texttt{top}. As a result, we decided to switch timings to a different GPU and CPU.
+
+Overall, we see the GPU also performs worse than the CPU here, but not nearly as poorly as in the dot product case. Moreover, we see across all processors that the memory band increased as the problem size grew. Note that in the way that we built matvec by extending the dot product code, it is unsurprising that the GPU is slower than the CPU. However, again, there may be implementation flaws in our GPU code that are causing a large bottleneck. One major area this could possibly be happening is in the recursive structure that we adapted from the reduction code. It is possible that in this scenario, the strategies used to speed up reduction are not as efficient when applied to computing dot products.
+
+
+\item \textbf{2D Jacobi method on a GPU.} Implement the 2D Jacobi method as discussed in the 2nd homework assignment using CUDA. Check the correctness of your implementation by performing the same computation on the CPU and compare them.
+
+
+\textbf{Solution:} Implementing the 2D Jacobi method was relatively straightforward. In our 2D CPU implementation, we kept the zeros representing the boundary terms in our array, and then ran a loop over the interior points. This allowed us to boil down the Jacobi iteration into two loops: one to use the old solution to build the new solution, and one to deep copy the "new" solution into the array that held the old solution. For our GPU code, this translates to two kernels: one to update build the new solution from the old array, and the other to write the new solution back to the old array.
+
+In both GPU kernels, we used the global thread ID to split up the work from the 2D array. In the serial code we run a double loop on the "interior" indices (i.e. those not corresponding to the boundary condition). When our array is size $N \times N$, this amounts to running a loop on the indices \texttt{i,j} from 1 to N and accessing \texttt{u[i+j*(N+2)}. For the GPU code, we get an effective "i" index by looking at the floor of thread ID divided by N. Similarly, we get an effective "j" index by taking the remainder of thread ID divided by N. This essentially unravels the double loop from the serial code.
+
+\begin{table}[!ht]
+\centering
+\caption{Timings in seconds for GPU and CPU codes to run 5000 iterations, each timing averaged over 10 repeats. GPU: GeForce GTX TITAN Z. CPU: Intel Xeon E5-2680.}
+\begin{tabular}{| c | c | c | c | c | c | }
+\hline
+ & $N=128$ & $N=256$ & $n=512$ & $N=1024$ & $N=2048$\\
+\hline
+GPU (GeForce GTX TITAN Z)   & 0.154 & 0.237 & 0.336 & 1.16 & 4.34  \\
+CPU (Intel Xeon E5-2650)  & 0.465  & 1.27 & 6.22  & 23.96 & 101.05\\
+\hline
+\end{tabular}
+\label{jacobi}
+\end{table}
+
+We verified our GPU code by testing against the CPU code and got exactly the same answers. Next we evaluated the performance of the GPU code against the CPU code, where the CPU code uses OpenMP with 4 threads to run the Jacobi iteration in parallel. In Table ... we report the timings for running the  GPU and CPU codes for 5000 iterations, with different problem sizes. Each of the timings is computed by averaging over 10 repeats.
+
+
+Based on the timings in Table \ref{jacobi}, it seems that the GPU code is signficantly faster than the CPU code for the Jacobi iterations. The speedup does not seem large for smaller problem sizes ($N=128$), but once the problem becomes very large the GPU provides a major speed up ($N=1024,2048$). In these cases, the GPU implementation is able to provide the exact same answer with nearly 25x speedup.
+
+
+
+
+
+
+
+\item \textbf{Update on final project.} Describe with a few sentences the status of your final project. What tasks that you formulated in the proposal have you worked on? Did you run into unforeseen problems?
+
+\textbf{Solution:} So far the final project has been going according to the schedule we initially laid out. We have currently implemented both the parallel-in-time integration method parareal, as well as both a parallel 1D and 2D Fast Fourier Transform (FFT). The parareal method is parallelized using OpenMP for-loop parallelism, and the FFT (via Cooley-Tukey algorithm) is parallelized using OpenMP tasks.We have tested the performance of parareal on some easy ODE, and also tested the performance the parallel FFT for various numbers of threads. What remains is to tie all these functions together to solve the KdV PDE. 
+
+One expected challenge that we began to encounter is managing the level of \textit{generality} our codes should work at. That is, the parareal solver needs two ODE solver functions handles, which in turn take in a function handle for the ODE's RHS which in turn requires some function handle which describes the pseudo-spectral discretization of KdV. Thus, as of right now, our mentality is to begin hard-coding in certain structures (such as the KdV discretization RHS) While this prevents our code from being fully general, it does reduce the number of function arguments needed to be passed around.
+
+
+
+
+\end{enumerate}
+	
+%\begin{thebibliography}{9}
+
+%\bibitem{fem}
+%S. Boyd and L. Vandenberghe.
+%\textit{Convex Optimization}.
+%Cambridge University Press 2004.
+
+%\bibitem{john}
+%S. G. Johnson.
+%\textit{Notes on FFT-based differentiation}.
+%2011.
+
+%\end{thebibliography}
+
+
+
+
+    
+    
+
+
+\end{document}
+

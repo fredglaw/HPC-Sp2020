@@ -72,7 +72,7 @@ void Check_CUDA_Error(const char *message){
 
 int main(int argc,char *argv[])
 {
-  long N=512; //declare N, either set as 100 by default or read in passed in argument
+  long N=256; //declare N, either set as 100 by default or read in passed in argument
   long N_blocks = ((N*N-1)/1024)+1;
   long N_threads = min((long)1024,N*N);
   long Np2 = N+2;

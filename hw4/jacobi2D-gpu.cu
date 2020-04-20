@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <cmath>
 #include <omp.h>
-#define N_THREADS 4 
+#define N_THREADS 4
 
 void jacobi(double* u_curr, double* u_prev, double h_sq, long N, long Np2,
             long Nmax){
@@ -72,7 +72,7 @@ void Check_CUDA_Error(const char *message){
 
 int main(int argc,char *argv[])
 {
-  long N=2048; //declare N, either set as 100 by default or read in passed in argument
+  long N=512; //declare N, either set as 100 by default or read in passed in argument
   long N_blocks = ((N*N-1)/1024)+1;
   long N_threads = min((long)1024,N*N);
   long Np2 = N+2;

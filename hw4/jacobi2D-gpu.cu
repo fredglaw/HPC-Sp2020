@@ -1,11 +1,11 @@
 // code by Frederick Law
 // Script to solve Laplace equation in 2D using Jacobi iterations.
-// nvcc -Xcompiler -fopenmp -O2 -o jacobi2D-gpu jacobi2D-gpu.cu && jacobi2D-gpu
+// nvcc -Xcompiler -fopenmp -O2 jacobi2D-gpu jacobi2D-gpu.cu && jacobi2D-gpu
 #include <stdio.h>
 #include <stdlib.h>
 #include <cmath>
 #include <omp.h>
-#define N_THREADS 4
+#define N_THREADS 4 
 
 void jacobi(double* u_curr, double* u_prev, double h_sq, long N, long Np2,
             long Nmax){
@@ -72,12 +72,11 @@ void Check_CUDA_Error(const char *message){
 
 int main(int argc,char *argv[])
 {
-  long N=512; //declare N, either set as 100 by default or read in passed in argument
+  long N=2048; //declare N, either set as 100 by default or read in passed in argument
   long N_blocks = ((N*N-1)/1024)+1;
   long N_threads = min((long)1024,N*N);
   long Np2 = N+2;
   long Np2_sq = Np2*Np2;
-  printf("N is: %d\n",N);
 
   long Nmax = 5e3;
   double h = 1/ ((double)N + 1);

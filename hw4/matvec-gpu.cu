@@ -1,11 +1,11 @@
 // script to compute vec-vecs and mat-vecs on gpu. compare to cpu for reference
 // g++-9 -std=c++11 -fopenmp -march=native -O2 -o matvec-gpu matvec-gpu.cpp && ./matvec-gpu
-// nvcc -Xcompiler -fopenmp -O2 -o matvec-gpu matvec-gpu.cu && ./matvec-gpu
+// nvcc -Xcompiler -fopenmp -lcuda -o matvec-gpu matvec-gpu.cu && ./matvec-gpu
 #include <stdio.h>
 #include <math.h>
 #include <omp.h>
 
-#define N_THREADS 1
+#define N_THREADS 4
 #define BLOCK_SIZE 1024
 
 //parallel vecvec to run on the cpu.
@@ -92,8 +92,8 @@ __global__ void basicwrite(double* addr1, double* addr2){
 
 int main(int argc,char *argv[]){
 
-  long N = (1UL<<24);
-  long N_REPEATS = 10;
+  long N = (1UL<<20);
+  long N_REPEATS = 50;
 
   //vec-vec setup
   double sum, sum_ref;
@@ -107,13 +107,14 @@ int main(int argc,char *argv[]){
 
 
   printf("vec-vec size N is: %d\n",N);
+  printf("number of repeats: %d\n",N_REPEATS);
 
   //compute vec-vec reference solution
   double tcpu = omp_get_wtime();
   for (long counter=0; counter<N_REPEATS; counter++){
     vecvec(&sum_ref,x,y,N);
   }
-  printf("vec-vec CPU Bandwidth = %f GB/s\n", 2*N*sizeof(double) / (omp_get_wtime()-tcpu)/(N_REPEATS*1e9));
+  printf("vec-vec CPU Bandwidth = %f GB/s\n", N_REPEATS*3*N*sizeof(double) / (omp_get_wtime()-tcpu)/(1e9));
 
   //cudaMalloc space
   double *x_d, *y_d, *buff_d; //declare pointers for memcopy to device
@@ -122,6 +123,7 @@ int main(int argc,char *argv[]){
   long N_work = 1;
   for (long i = (N+BLOCK_SIZE-1)/(BLOCK_SIZE); i > 1; i = (i+BLOCK_SIZE-1)/(BLOCK_SIZE)) N_work += i;
   cudaMalloc(&buff_d, N_work*sizeof(double)); // extra memory buffer for reduction across thread-blocks
+
 
   double tgpu = omp_get_wtime();
   for (long counter=0; counter<N_REPEATS; counter++){
@@ -140,7 +142,7 @@ int main(int argc,char *argv[]){
     cudaMemcpyAsync(&sum,sum_d, 1*sizeof(double), cudaMemcpyDeviceToHost);
     cudaDeviceSynchronize(); //synchronize blocks, i.e. wait for kernel
   }
-  printf("vec-vec GPU Bandwidth = %f GB/s\n", 2*N*sizeof(double) / (omp_get_wtime()-tgpu)/(N_REPEATS*1e9));
+  printf("vec-vec GPU Bandwidth = %f GB/s\n", N_REPEATS*3*N*sizeof(double) / (omp_get_wtime()-tgpu)/(1e9));
 
   //vec-vec error
   double err = abs(sum_ref - sum);
@@ -162,7 +164,8 @@ int main(int argc,char *argv[]){
 **************************************************************************** */
 
  N = (1UL<<10);
- long M = (1UL<<16);
+ //long M = (1UL<<10);
+ long M = N;
  //N = 2;
  //long M = 2;
  double* a = (double*) malloc(M*N*sizeof(double));
@@ -185,7 +188,7 @@ int main(int argc,char *argv[]){
  for (long counter=0; counter<N_REPEATS; counter++){
    matvec(M,N,a,b,c_ref);
  }
- printf("mat-vec CPU Bandwidth = %f GB/s\n", 2*M*N*sizeof(double) / (omp_get_wtime()-tcpu)/(N_REPEATS*1e9));
+ printf("mat-vec CPU Bandwidth = %f GB/s\n", N_REPEATS*2*M*N*sizeof(double) / (omp_get_wtime()-tcpu)/(1e9));
 
  //cudaMalloc space
  double *a_d, *b_d, *c_d; //declare pointers for memcopy to device
@@ -204,7 +207,7 @@ int main(int argc,char *argv[]){
    cudaDeviceSynchronize();
    for (long row=0; row<M; row++){ //do row-wise vec vec on gpu
      double* sum_d = buff_d;
-     Nb = (N+BLOCK_SIZE-1)/(BLOCK_SIZE);
+     long Nb = (N+BLOCK_SIZE-1)/(BLOCK_SIZE);
      vecvec_kernel<<<Nb,BLOCK_SIZE>>>(sum_d, a_d+(row*N), b_d, N);
      while (Nb > 1) {
        long Nd = Nb;
@@ -217,7 +220,7 @@ int main(int argc,char *argv[]){
    cudaMemcpyAsync(c,c_d, M*sizeof(double), cudaMemcpyDeviceToHost);
    cudaDeviceSynchronize(); //synchronize blocks, i.e. wait for kernel
  }
- printf("mat-vec GPU Bandwidth = %f GB/s\n", 2*M*N*sizeof(double) / (omp_get_wtime()-tgpu)/(N_REPEATS*1e9));
+ printf("mat-vec GPU Bandwidth = %f GB/s\n", N_REPEATS*2*M*N*sizeof(double) / (omp_get_wtime()-tgpu)/(1e9));
 
  //mat-vec error
  err = 0;
